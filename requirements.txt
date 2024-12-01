@@ -1,0 +1,4 @@
+AdvancedHTMLParser==9.0.2
+AdvancedHTMLParser==9.0.2
+Requests==2.32.3
+scipy==1.14.1
