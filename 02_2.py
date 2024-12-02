@@ -16,9 +16,10 @@ print(data)
 
 for line in data:
     anyy = False
-    for i in range(0, len(line)):
+    for i in range(-1, len(line)):
         i_line = line.copy()
-        del i_line[i]
+        if i != -1:
+            del i_line[i]
         diff = [b-a for a, b in zip(i_line, i_line[1:])]
         if False not in [i > 0 for i in diff] and False not in [1 <= abs(i) <= 3 for i in diff]:
             anyy = True
