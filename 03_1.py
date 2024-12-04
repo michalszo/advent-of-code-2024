@@ -14,19 +14,13 @@ data = ''''''
 # data = load_test_data(DAY)
 data = load_data(DAY)
 
-print_formatted(f"&e3&#ec{data}")
-
+print(f"&e3&#ec{data}")
+print()
 
 data = data.replace("\r\n", "")
-print(data)
-
-matches = re.findall(r"mul\(\d+,\d+\)", data)
+matches = re.findall(r"mul\((\d+),(\d+)\)", data)
 print(matches)
-for match in matches:
-    a, b = match.replace("mul(", "").replace(")", "").split(",")
-    print(a, b)
-    answer += int(a)*int(b)
-# answer = sum([ reduce(lambda a,b: a*b, [int(j) for j in ], 1) for i in matches])
+answer = sum([int(a)*int(b) for a,b in matches])
 
 print(answer)
 # pyperclip.copy(str(answer))
