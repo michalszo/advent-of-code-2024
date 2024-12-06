@@ -32,7 +32,6 @@ for match in matches:
         a, b = match.replace("mul(", "").replace(")", "").split(",")
         print(a, b)
         answer += int(a)*int(b)
-# answer = sum([ reduce(lambda a,b: a*b, [int(j) for j in ], 1) for i in matches])
 
 print(answer)
 # pyperclip.copy(str(answer))
