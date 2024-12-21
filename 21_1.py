@@ -78,7 +78,7 @@ for kod, (a, b, c, d) in napisy:
         nie_wynik = zrob(napis)
         wynik = nie_wynik#zrob(nie_wynik)
 
-        print(napis, len(wynik))
+        # print(napis, len(wynik))
 
         if not najlepszy_wynik or len(wynik) <= len(najlepszy_wynik):
             najlepszy_wynik = wynik
@@ -93,3 +93,6 @@ print(answer)
 # 295072 too high
 # 276852 too low
 # 275062 too low
+
+print(zrob(zrob("v<A")))
+print(zrob(zrob("<vA")))
