@@ -1,4 +1,5 @@
 def get_example_input(day, year=2024):
+    # Import only if the function is used
     import AdvancedHTMLParser
     import re
     import requests

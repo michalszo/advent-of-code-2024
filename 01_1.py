@@ -8,23 +8,15 @@ answer = 0
 data = ''''''
 # data = load_test_data(DAY)
 data = load_data(DAY)
-
 print_formatted(f"&e3&#ec{data}")
 
-data = [[int(j) for j in i.split("   ")] for i in data.splitlines()]
+data = [[int(j) for j in i.split()] for i in data.splitlines()]
 
-l1 = []
-l2 = []
+l1, l2 = zip(*data)
 
-for a1, a2 in data:
-    l1.append(a1)
-    l2.append(a2)
-
-l1.sort()
-l2.sort()
-
-for a1, a2 in zip(l1, l2):
+for a1, a2 in zip(sorted(l1), sorted(l2)):
     answer += abs(a1 - a2)
 
-print(answer)
+# 2580760
+print_formatted(f"&ffAnswer: &e2{answer}")
 # pyperclip.copy(str(answer))

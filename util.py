@@ -7,26 +7,6 @@ ii = lambda _i: int(_i) if _i.isnumeric() else _i
 def is_sequence(obj):
     return isinstance(obj, Sequence) and not isinstance(obj, (str, bytes, bytearray))
 
-def find_neighbors(table, position, offests):
-    shape = (len(table[0]), len(table))
-    return [table[position[1]+y][position[0]+x] for x, y in offests if 0 <= position[1]+y < shape[1] and 0 <= position[0]+y < shape[0]]
-
-def find_neighbors_3d(table, position, offests):
-    shape = (len(table[0][0]), len(table[0]), len(table))
-    return [table[position[2]+z][position[1]+y][position[0]+x] for x, y, z in offests if 0 <= position[2]+y < shape[2] and 0 <= position[1]+y < shape[1] and 0 <= position[0]+y < shape[0]]
-
-def shortest_path(start, end, connections):
-    current = [[start]]
-    new = []
-    while 1:
-        for path in current:
-            for node in connections[path[-1]]:
-                if node not in path:
-                    new.append(path+[node])
-                if node == end:
-                    return path[1:]+[node]
-        current = new.copy()
-
 def parse_data(obj, *args):
     if len(args) == 1:
         return obj.split(args[0])
