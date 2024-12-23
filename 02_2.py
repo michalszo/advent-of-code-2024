@@ -1,9 +1,5 @@
 from string_formatting import print_formatted
 from util import *
-from collections import Counter
-
-from string_formatting import print_formatted
-from util import *
 import itertools as it
 
 DAY = 2
@@ -18,7 +14,6 @@ data = [[int(j) for j in i.split()] for i in data.splitlines()]
 print(data)
 
 for line in data:
-    anyy = False
     for i in range(-1, len(line)):
         i_line = line.copy()
         if i != -1:
