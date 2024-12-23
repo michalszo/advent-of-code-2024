@@ -8,7 +8,6 @@ answer = 0
 data = ''''''
 # data = load_test_data(DAY)
 data = load_data(DAY)
-
 print_formatted(f"&e3&#ec{data}")
 
 data = [i for i in data.splitlines()]
@@ -43,5 +42,6 @@ for x in range(len(data[0]) - 3):
         if s in ["XMAS", "SAMX"]:
             answer += 1
 
-print(answer)
+# 2613
+print_formatted(f"&ffAnswer: &e2{answer}")
 # pyperclip.copy(str(answer))
