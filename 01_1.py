@@ -11,6 +11,7 @@ data = load_data(DAY)
 print_formatted(f"&e3&#ec{data}")
 
 data = [[int(j) for j in i.split()] for i in data.splitlines()]
+print(data)
 
 l1, l2 = zip(*data)
 

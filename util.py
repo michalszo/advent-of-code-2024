@@ -1,8 +1,11 @@
+import math
 from collections.abc import Sequence
 from os.path import exists
 from example_input import get_example_input
 
 ii = lambda _i: int(_i) if _i.isnumeric() else _i
+
+sign = lambda x: math.copysign(1, x)
 
 def is_sequence(obj):
     return isinstance(obj, Sequence) and not isinstance(obj, (str, bytes, bytearray))
@@ -17,6 +20,7 @@ def parse_data(obj, *args):
 def load_data(day, year=2024):
     if not exists(f"{day}.txt") or open(f"{day}.txt").read().strip() == '':
         print("Loading data...")
+        # Import only if the function is used
         import requests
         data = requests.get(f"https://adventofcode.com/{year}/day/{day}/input", cookies={"session":open("session_id.txt").read()}).text.strip()
         if not data.startswith("Please don't"):
