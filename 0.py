@@ -8,11 +8,10 @@ answer = 0
 data = ''''''
 data = load_test_data(DAY)
 # data = load_data(DAY)
-
 print_formatted(f"&e3&#ec{data}")
 
 data = [i for i in data.splitlines()]
 print(data)
 
-print(answer)
+print_formatted(f"&ffAnswer: &e2{answer}")
 # pyperclip.copy(str(answer))
