@@ -1,9 +1,7 @@
-import sys
-from collections import defaultdict
-
 from string_formatting import print_formatted
 from util import *
 import itertools as it
+from collections import defaultdict
 
 DAY = 9
 
@@ -11,9 +9,6 @@ answer = 0
 data = ''''''
 # data = load_test_data(DAY)
 data = load_data(DAY)
-
-sys.set_int_max_str_digits(20000)
-
 print_formatted(f"&e3&#ec{data}")
 
 files = [int(i) for i in data[::2]]
@@ -52,37 +47,23 @@ n = 0
 for i in range(len(files)):
     if i not in used:
         for _ in range(files[i]):
-            print(i, end="")
+            # print(i, end="")
             answer += n*i
             n += 1
     else:
-        print("." * files[i], end="")
+        # print("." * files[i], end="")
         n += files[i]
     used.add(i)
     for j in moved[i]:
         used.add(j)
         for _ in range(files[j]):
-            print(j, end="")
+            # print(j, end="")
             answer += n * j
             n += 1
-    print("."*space[i], end="")
+    # print("."*space[i], end="")
     n += space[i]
-    # print(i, moved[i], space[i])
-# unused = set(range(len(files)))
-# while unused:
-#     break
+# print()
 
-# while 1:
-#     for i in range(len(files)-1, left_id, -1):
-#         if files[i] <= space[left_id] and files[i] != 0:
-#             result.append((i, files[i]))
-#             print(result)
-#             space[left_id] -= files[i]
-#             files[i] = 0
-#         while space[left_id] == 0:
-#             left_id += 1
-#             print(space)
-    # break
-
-print(answer)
+# 6420913943576
+print_formatted(f"&ffAnswer: &e2{answer}")
 # pyperclip.copy(str(answer))
