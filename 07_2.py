@@ -1,5 +1,3 @@
-from functools import reduce
-
 from string_formatting import print_formatted
 from util import *
 import itertools as it
@@ -10,7 +8,6 @@ answer = 0
 data = ''''''
 # data = load_test_data(DAY)
 data = load_data(DAY)
-
 print_formatted(f"&e3&#ec{data}")
 
 data = [i.split(": ") for i in data.splitlines()]
@@ -18,18 +15,17 @@ data = {int(i[0]): [int(j) for j in i[1].split()] for i in data}
 print(data)
 
 for result, numbers in data.items():
-    for ops in it.product(range(3), repeat=len(numbers)-1):
-        val = numbers[0]
-        for n, op in zip(numbers[1:], ops):
-            if op == 2:
-                val = int(str(val) + str(n))
-            elif op == 1:
-                val *= n
-            else:
-                val += n
-        if val == result:
-            answer += result
-            break
+    values = {numbers[0]}
+    for n in numbers[1:]:
+        new_values = set()
+        for v in values:
+            new_values.add(v * n)
+            new_values.add(v + n)
+            new_values.add(int(str(v) + str(n)))
+        values = new_values.copy()
+    if result in values:
+        answer += result
 
-print(answer)
+# 189207836795655
+print_formatted(f"&ffAnswer: &e2{answer}")
 # pyperclip.copy(str(answer))
