@@ -78,5 +78,5 @@ for obstacle in possible_obstacles:
         visited.add((guard, rot))
 
 # 1530
-print(answer)
+print_formatted(f"&ffAnswer: &e2{answer}")
 # pyperclip.copy(str(answer))
