@@ -1,10 +1,7 @@
-from collections import defaultdict
-
-import numpy as np
-
 from string_formatting import print_formatted
 from util import *
 import itertools as it
+from collections import defaultdict
 
 DAY = 6
 
@@ -12,55 +9,42 @@ answer = 0
 data = ''''''
 # data = load_test_data(DAY)
 data = load_data(DAY)
-
 print_formatted(f"&e3&#ec{data}")
 
+rotations = [-1j, 1, 1j, -1]
+
 data = [i for i in data.splitlines()]
-
-rotations = [(0, -1), (1, 0), (0, 1), (-1, 0)]
-
-gx, gy = -1, -1
-rot = 0
-
-mapa = defaultdict(int)
-
-def add_pos(p1, p2):
-    return p1[0] + p2[0], p1[1] + p2[1]
-
-def sub_pos(p1, p2):
-    return p1[0] - p2[0], p1[1] - p2[1]
+the_map = defaultdict(int)
 
 for y, row in enumerate(data):
     for x, v in enumerate(row):
+        xy = x + 1j * y
         if v == "^":
-            gx, gy = x, y
-        if v == "#":
-            mapa[(x, y)] = 1
-        else:
-            mapa[(x, y)] = -1
+            guard = xy
+        the_map[xy] = 1 if v == "#" else -1
 
-assert -1 not in (gx, gy)
+print(the_map)
 
-visited = {(gx, gy)}
+visited = {guard}
+rot = 0
 
 while 1:
-    print(gx, gy, rot)
-    nx, ny = add_pos((gx, gy), rotations[rot % 4])
-    if mapa[(nx, ny)] == 1:
-        rot += 1
-        gx, gy = add_pos((gx, gy), rotations[rot % 4])
-        visited.add((gx, gy))
-        continue
-    elif mapa[(nx, ny)] == -1:
-        gx, gy = nx, ny
-        visited.add((gx, gy))
-        continue
-    elif mapa[(nx, ny)] == 0:
+    print(guard, rot)
+    new_pos = guard + rotations[rot]
+    if the_map[new_pos] == 1:
+        rot = (rot + 1) % 4
+        # We don't move here, because there can be an obstacle in the new direction too
+        # guard += rotations[rot % 4]
+        # visited.add(guard)
+    elif the_map[new_pos] == -1:
+        guard = new_pos
+        visited.add(guard)
+    elif the_map[new_pos] == 0:
         break
 
-print(mapa)
 
 answer = len(visited)
 
-print(answer)
+# 4663
+print_formatted(f"&ffAnswer: &e2{answer}")
 # pyperclip.copy(str(answer))

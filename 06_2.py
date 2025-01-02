@@ -1,10 +1,7 @@
-from collections import defaultdict
-
-import numpy as np
-
 from string_formatting import print_formatted
 from util import *
 import itertools as it
+from collections import defaultdict
 
 DAY = 6
 
@@ -12,75 +9,74 @@ answer = 0
 data = ''''''
 # data = load_test_data(DAY)
 data = load_data(DAY)
-
 print_formatted(f"&e3&#ec{data}")
 
+rotations = [-1j, 1, 1j, -1]
+
 data = [i for i in data.splitlines()]
-
-rotations = [(0, -1), (1, 0), (0, 1), (-1, 0)]
-
-gx, gy = -1, -1
-rot = 0
-
-mapa = defaultdict(int)
-
-def add_pos(p1, p2):
-    return p1[0] + p2[0], p1[1] + p2[1]
-
-def sub_pos(p1, p2):
-    return p1[0] - p2[0], p1[1] - p2[1]
+the_map = defaultdict(int)
 
 for y, row in enumerate(data):
     for x, v in enumerate(row):
+        xy = x + 1j * y
         if v == "^":
-            gx, gy = x, y
-        if v == "#":
-            mapa[(x, y)] = 1
-        else:
-            mapa[(x, y)] = -1
+            guard = xy
+        the_map[xy] = 1 if v == "#" else -1
 
-assert -1 not in (gx, gy)
+print(the_map)
 
-og = (gx, gy)
-og_rot = rot
-visited = {(gx, gy)}
+start_pos = guard
+possible_obstacles = {guard}
+rot = 0
 
 while 1:
-    nx, ny = add_pos((gx, gy), rotations[rot])
-    if mapa[(nx, ny)] == 1:
+    new_pos = guard + rotations[rot]
+    if the_map[new_pos] == 1:
         rot = (rot + 1) % 4
-        gx, gy = add_pos((gx, gy), rotations[rot])
-        visited.add((gx, gy))
-        continue
-    elif mapa[(nx, ny)] == -1:
-        gx, gy = nx, ny
-        visited.add((gx, gy))
-        continue
-    elif mapa[(nx, ny)] == 0:
+    elif the_map[new_pos] == -1:
+        guard = new_pos
+        possible_obstacles.add(guard)
+    elif the_map[new_pos] == 0:
         break
 
-visited.remove(og)
 
-for obstacle in visited:
-    # print(obstacle)
-    gx, gy = og
-    rot = og_rot
+possible_obstacles.remove(start_pos)
 
-    super_visited = {(gx, gy, rot)}
+print(possible_obstacles)
+
+# working_obstacles = set()
+
+for obstacle in possible_obstacles:
+    print(obstacle)
+    guard = start_pos
+    rot = 0
+    visited = {(guard, rot)}
     while 1:
-        nx, ny = add_pos((gx, gy), rotations[rot])
-        if mapa[(nx, ny)] == 1 or (nx, ny) == obstacle:
+        new_pos = guard + rotations[rot]
+        if the_map[new_pos] == 1 or new_pos == obstacle:
             rot = (rot + 1) % 4
-            # gx, gy = add_pos((gx, gy), rotations[rot])
-        elif mapa[(nx, ny)] == -1:
-            gx, gy = nx, ny
-        elif mapa[(nx, ny)] == 0:
+        elif the_map[new_pos] == -1:
+            guard = new_pos
+        elif the_map[new_pos] == 0:
             break
-        if (gx, gy, rot) in super_visited:
+        if (guard, rot) in visited:
+            # print((guard, rot), visited)
+            # for y, row in enumerate(data):
+            #     for x, v in enumerate(row):
+            #         if (x + 1j * y) == obstacle:
+            #             print("O", end="")
+            #         elif (x + 1j * y) == guard:
+            #             print("B", end="")
+            #         elif (x + 1j * y) in {i[0] for i in visited} and v != "^":
+            #             print("X", end="")
+            #         else:
+            #             print(v, end="")
+            #     print()
+            # print()
             answer += 1
             break
-        super_visited.add((gx, gy, rot))
+        visited.add((guard, rot))
 
+# 1530
 print(answer)
-# 1430 źle
 # pyperclip.copy(str(answer))
