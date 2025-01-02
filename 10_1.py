@@ -5,24 +5,23 @@ import itertools as it
 DAY = 10
 
 answer = 0
-data = '''89010123
-78121874
-87430965
-96549874
-45678903
-32019012
-01329801
-10456732'''
-# data = load_test_data(DAY)
+# data = '''89010123
+# 78121874
+# 87430965
+# 96549874
+# 45678903
+# 32019012
+# 01329801
+# 10456732'''
 data = load_data(DAY)
-
 print_formatted(f"&e3&#ec{data}")
 
-data = [[int(j) for j in i] for i in data.splitlines()]
+data = data.splitlines()
 width, height = len(data[0]), len(data)
+data = {x + 1j * y: int(v) for x, row in enumerate(data) for y, v in enumerate(row)}
 print(data)
 
-zeros = [(x, y) for x, y in it.product(range(width), range(height)) if data[y][x] == 0]
+zeros = {k for k, v in data.items() if v == 0}
 print(zeros)
 
 for start in zeros:
@@ -30,17 +29,17 @@ for start in zeros:
 
     for number in range(9):
         new_points = set()
-        for x, y in points:
-            for dx, dy in [(1, 0), (-1, 0), (0, 1), (0, -1)]:
-                # if dx == dy == 0:
-                #     continue
-                if not (0 <= y + dy < height and 0 <= x + dx < width):
+        for point in points:
+            for direction in {-1j, 1, 1j, -1}:
+                new_pos = point + direction
+                if new_pos not in data.keys():
                     continue
-                if data[y+dy][x+dx] == number + 1:
-                    new_points.add((x+dx, y+dy))
+                if data[new_pos] == number + 1:
+                    new_points.add(new_pos)
         points = new_points.copy()
     answer += len(points)
     print(points)
 
-print(answer)
+# 682
+print_formatted(f"&ffAnswer: &e2{answer}")
 # pyperclip.copy(str(answer))
