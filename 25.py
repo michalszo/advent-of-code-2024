@@ -44,6 +44,6 @@ for a, b in it.product(locks, keys):
         answer += 1
 # print(keys)
 
+# 3269
 print_formatted(f"&ffAnswer: &e2{answer}")
-# nie 6426, 6171
 # pyperclip.copy(str(answer))

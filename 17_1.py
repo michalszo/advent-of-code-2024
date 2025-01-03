@@ -1,25 +1,23 @@
-import re
-
 from string_formatting import print_formatted
 from util import *
 import itertools as it
+import re
 
 DAY = 17
 
 answer = 0
-data = '''Register A: 729
-Register B: 0
-Register C: 0
-
-Program: 0,1,5,4,3,0'''
-data = '''Register A: 0
-Register B: 2024
-Register C: 43690
-
-Program: 4,0'''
+# data = '''Register A: 729
+# Register B: 0
+# Register C: 0
+#
+# Program: 0,1,5,4,3,0'''
+# data = '''Register A: 0
+# Register B: 2024
+# Register C: 43690
+#
+# Program: 4,0'''
 # data = load_test_data(DAY)
 data = load_data(DAY)
-
 print_formatted(f"&e3&#ec{data}")
 
 data = re.match(r'''Register A: (\d+)
@@ -30,7 +28,7 @@ Program: ([\d,]+)''', data).groups()
 # print(data)
 
 reg = {
-    "A": 13427108806931*8+3,#int(data[0]),
+    "A": int(data[0]),
     "B": int(data[1]),
     "C": int(data[2]),
 }
@@ -76,7 +74,7 @@ while 1:
 print(reg)
 
 answer = ",".join([str(i) for i in outputs])
-# 4,4,1,1,5,6,6,6,6 nie
 
-print(answer)
+# 2,7,6,5,6,0,2,3,1
+print_formatted(f"&ffAnswer: &e2{answer}")
 # pyperclip.copy(str(answer))

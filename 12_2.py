@@ -16,11 +16,9 @@ VVIVCCJJEE
 VVIIICJJEE
 MIIIIIJJEE
 MIIISIJEEE
-MMMISSJEEE
-'''
+MMMISSJEEE'''
 # data = load_test_data(DAY)
 data = load_data(DAY)
-
 print_formatted(f"&e3&#ec{data}")
 
 data = [list(i) for i in data.splitlines()]
@@ -148,5 +146,6 @@ for v, points in edges.items():
     print(v, area[v], sides, area[v]*sides)
     answer += area[v]*sides
 
-print(answer)
+# 902742
+print_formatted(f"&ffAnswer: &e2{answer}")
 # pyperclip.copy(str(answer))

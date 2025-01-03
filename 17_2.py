@@ -1,78 +1,86 @@
+from string_formatting import print_formatted
+from util import *
 import itertools as it
-import math
+import re
 
-# program = (2,4,1,5,7,5,1,6,4,2,5,5,0,3,3,0)
+DAY = 17
+
+answer = 0
+# data = '''Register A: 729
+# Register B: 0
+# Register C: 0
 #
-# git = range(1024)
-# for n in range(15):
-#     nowe_git = set()
-#     for base in git:
-#         for A in range(base*8, base*8+8):
-#             # out =
-#             out = ((((A%8)^5)^6)^(A//(2**((A%8)^5)))) % 8
+# Program: 0,1,5,4,3,0'''
+# data = '''Register A: 0
+# Register B: 2024
+# Register C: 43690
 #
-#             if out == program[15-n]:
-#                 nowe_git.add(A)
-#     git = nowe_git.copy()
-# print(git)
-# print(min(git))
+# Program: 4,0'''
+# data = load_test_data(DAY)
+data = load_data(DAY)
+print_formatted(f"&e3&#ec{data}")
 
-# 13427108806931 too low
+data = re.match(r'''Register A: (\d+)
+Register B: (\d+)
+Register C: (\d+)
 
-# def inv(_v):
-#     return "1" if _v == "0" else "0"
-#
-#
-# patterns = []
-#
-# for n, v in enumerate(program):
-#     bits = bin(v)[2:].rjust(3, "0")
-#     patterns.append([i.replace("x", bits[0]) for i in [
-#     f'..{bits[0]}{inv(bits[1])}{inv(bits[2])}..000' + '...'*n,
-#     f'...{bits[0]}{inv(bits[1])}{bits[2]}.001' + '...'*n,
-#     f'{bits[0]}{bits[1]}{inv(bits[2])}....010' + '...'*n,
-#     f'.{bits[0]}{bits[1]}{bits[2]}...011' + '...'*n,
-#     f'......{inv(bits[0])}010' + '...'*n,
-#     f'.......011' + '...'*n,
-#     f'....{inv(bits[0])}{bits[1]}{inv(bits[2])}110' + '...'*n,
-#     f'.....{inv(bits[0])}{bits[1]}111' + '...'*n,
-#     ]])
-# print(patterns)
-#
-# while len(patterns) > 1:
-#     compatible = set()
-#     for a, b in it.product(patterns[0], patterns[1]):
-#         new_reversed = ""
-#         for x, y in it.zip_longest(a[::-1], b[::-1], fillvalue="."):
-#             if x != "." and y != "." and x != y:
-#                 break
-#             elif x == "0" or y == "0":
-#                 new_reversed += "0"
-#             elif x == "1" or y == "1":
-#                 new_reversed += "1"
-#             else:
-#                 new_reversed += "."
-#         else:
-#             compatible.add(new_reversed[::-1])
-#     del patterns[0]
-#     patterns[0] = compatible
-#     print(len(patterns), len(compatible))
-#
-# open("17compatible.txt", "w+").writelines([i+"\n" for i in compatible])
+Program: ([\d,]+)''', data).groups()
 
-best = math.inf
+program = [int(i) for i in data[3].split(",")]
 
-# data = open("17compatible.txt", "r+").read().strip().splitlines()
-# print(data)
+def run(_A):
+    reg = {
+        "A": _A,
+        "B": int(data[1]),
+        "C": int(data[2]),
+    }
+    pointer = 0
+    outputs = []
+    while 1:
+        if pointer + 1 >= len(program):
+            break
+        opcode, literal = program[pointer:pointer + 2]
+        if 4 <= literal <= 6:
+            combo = reg["ABC"[literal - 4]]
+        else:
+            combo = literal
+        # print(pointer, reg, opcode, literal, combo)
+        if opcode == 0:
+            reg["A"] //= (2 ** combo)
+        elif opcode == 1:
+            reg["B"] ^= literal
+        elif opcode == 2:
+            reg["B"] = combo % 8
+        elif opcode == 3:
+            if reg["A"] != 0:
+                pointer = literal
+                pointer -= 2  # cancelling
+        elif opcode == 4:
+            reg["B"] ^= reg["C"]
+        elif opcode == 5:
+            outputs.append(combo % 8)
+        elif opcode == 6:
+            reg["B"] = reg["A"] // (2 ** combo)
+        elif opcode == 7:
+            reg["C"] = reg["A"] // (2 ** combo)
+        pointer += 2
+    return outputs
 
-for i in open("17compatible.txt", "r+").read().strip().splitlines():
-    print(int(i.replace(".", "0"), 2))
-    best = min(best, int(i.replace(".", "0"), 2))
+ok = {n for n in range(2**10) if run(n)[-1] == program[-1]}
+for i in range(-2, -len(program)-1, -1):
+    new_ok = set()
+    for n in ok:
+        for A in range(n*8, (n+1)*8):
+            r = run(A)
+            assert r[-1] == program[-1]
+            if r[i] == program[i]:
+                new_ok.add(A)
+    ok = new_ok.copy()
+    print(i, len(ok))
+    # print(A, run(A))
 
-print(best)
+answer = min(ok)
 
-# print(compatible)
-    # break
-        # print("   "+a)
-        # print(b)
-        # print()
+# 107416870455451
+print_formatted(f"&ffAnswer: &e2{answer}")
+# pyperclip.copy(str(answer))

@@ -1,9 +1,7 @@
-from copy import deepcopy
-
 from string_formatting import print_formatted
 from util import *
 import itertools as it
-import time
+from copy import deepcopy
 
 DAY = 15
 
@@ -38,9 +36,7 @@ answer = 0
 # <><^^>^^^<><vvvvv^v<v<<>^v<v>v<<^><<><<><<<^^<<<^<<>><<><^^^>^^<>^>v<>
 # ^^>vv<^v^v<vv>^<><v<^v>^^^>>>^^vvv^>vvv<>>>^<^>>>>>^<<^v>^vvv<>^<><<v>
 # v^^>>><<^^<>>^v^<v^vv<>v^<<>^<^v^v><^<<<><<^<v><v<>vv>>v><v^<vv<>v^<<^'''
-# data = load_test_data(DAY)
 data = load_data(DAY)
-
 print_formatted(f"&e3&#ec{data}")
 
 def add_pos(p1, p2):
@@ -166,6 +162,6 @@ for y, row in enumerate(mapa):
 
 
 
-print(answer)
-# 1582876 too high
+# 1575877
+print_formatted(f"&ffAnswer: &e2{answer}")
 # pyperclip.copy(str(answer))

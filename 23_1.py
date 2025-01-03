@@ -5,10 +5,9 @@ import itertools as it
 DAY = 23
 
 answer = 0
-data = ''''''
+# data = ''''''
 # data = load_test_data(DAY)
 data = load_data(DAY)
-
 print_formatted(f"&e3&#ec{data}")
 
 conns = [i.split("-") for i in data.splitlines()]
@@ -36,6 +35,6 @@ for c1, c2 in conns:
 print(threes)
 answer = len(threes)
 
-print(answer)
-# nie 39793
+# 1184
+print_formatted(f"&ffAnswer: &e2{answer}")
 # pyperclip.copy(str(answer))

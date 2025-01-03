@@ -5,10 +5,9 @@ import itertools as it
 DAY = 23
 
 answer = 0
-data = ''''''
-data = load_test_data(DAY)
+# data = ''''''
+# data = load_test_data(DAY)
 data = load_data(DAY)
-
 print_formatted(f"&e3&#ec{data}")
 
 conns = {frozenset(i.split("-")) for i in data.splitlines()}
@@ -50,8 +49,8 @@ for conn1 in conns:
         if len(big_group) > len(longest):
             longest = big_group
 
-print(",".join(sorted(longest)))
+answer = ",".join(sorted(longest))
 
-print(answer)
-# nie 39793
+# hf,hz,lb,lm,ls,my,ps,qu,ra,uc,vi,xz,yv
+print_formatted(f"&ffAnswer: &e2{answer}")
 # pyperclip.copy(str(answer))

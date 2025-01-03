@@ -1,8 +1,7 @@
-from collections import defaultdict
-
 from string_formatting import print_formatted
 from util import *
 import itertools as it
+from collections import defaultdict
 
 DAY = 12
 
@@ -16,11 +15,9 @@ VVIVCCJJEE
 VVIIICJJEE
 MIIIIIJJEE
 MIIISIJEEE
-MMMISSJEEE
-'''
+MMMISSJEEE'''
 # data = load_test_data(DAY)
 data = load_data(DAY)
-
 print_formatted(f"&e3&#ec{data}")
 
 data = [list(i) for i in data.splitlines()]
@@ -101,6 +98,6 @@ for v, ps in points.items():
     print(v, area[v], i, area[v]*i)
     answer += area[v]*i
 
-print(answer)
-# 1448524 nie
+# 1446042
+print_formatted(f"&ffAnswer: &e2{answer}")
 # pyperclip.copy(str(answer))

@@ -1,8 +1,7 @@
-from functools import cache
-
 from string_formatting import print_formatted
 from util import *
 import itertools as it
+from functools import cache
 
 DAY = 19
 
@@ -10,7 +9,6 @@ answer = 0
 data = ''''''
 # data = load_test_data(DAY)
 data = load_data(DAY)
-
 print_formatted(f"&e3&#ec{data}")
 
 words, sentences = data.split("\n\n")
@@ -36,5 +34,6 @@ for sentence in sentences:
     print(x)
     answer += x
 
-print(answer)
+# 625108891232249
+print_formatted(f"&ffAnswer: &e2{answer}")
 # pyperclip.copy(str(answer))

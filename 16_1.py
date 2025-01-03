@@ -1,5 +1,3 @@
-from collections import defaultdict
-
 from string_formatting import print_formatted
 from util import *
 import itertools as it
@@ -8,10 +6,8 @@ DAY = 16
 
 answer = 0
 data = ''''''
-data = load_test_data(DAY)
-# data = load_data(DAY)
-
-
+# data = load_test_data(DAY)
+data = load_data(DAY)
 print_formatted(f"&e3&#ec{data}")
 
 data = [[*i] for i in data.splitlines()]
@@ -38,7 +34,7 @@ points = {start: 0}
 current = {start}
 
 while current:
-    print(points)
+    # print(points)
     new_current = set()
     for point in current:
         (x, y), rot = point
@@ -59,5 +55,6 @@ for ((x, y), rot), score in points.items():
     if (x, y) == end:
         answer = max(0, score)
 
-print(answer)
+# 91464
+print_formatted(f"&ffAnswer: &e2{answer}")
 # pyperclip.copy(str(answer))

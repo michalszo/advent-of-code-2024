@@ -5,10 +5,9 @@ import itertools as it
 DAY = 22
 
 answer = 0
-data = ''''''
+# data = ''''''
 # data = load_test_data(DAY)
 data = load_data(DAY)
-
 print_formatted(f"&e3&#ec{data}")
 
 data = [int(i) for i in data.splitlines()]
@@ -25,5 +24,6 @@ for secret in data:
     print(secret)
     answer += secret
 
-print(answer)
+# 20401393616
+print_formatted(f"&ffAnswer: &e2{answer}")
 # pyperclip.copy(str(answer))

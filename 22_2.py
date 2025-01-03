@@ -1,17 +1,15 @@
-from collections import defaultdict
-from email.policy import default
-
 from string_formatting import print_formatted
 from util import *
 import itertools as it
+from collections import defaultdict
 
 DAY = 22
 
 answer = 0
-data = '''1
-2
-3
-2024'''
+# data = '''1
+# 2
+# 3
+# 2024'''
 # data = load_test_data(DAY)
 data = load_data(DAY)
 
@@ -50,7 +48,10 @@ for secret in data:
         # secret %= (2**24)
     # print(secret)
 
-print(sorted(seqs.items(), key=lambda x: x[1]))
+# print(sorted(seqs.items(), key=lambda x: x[1]))
 
-print(answer)
-# nie 2528
+answer = max(seqs.items(), key=lambda x: x[1])[1]
+
+# 2272
+print_formatted(f"&ffAnswer: &e2{answer}")
+# pyperclip.copy(str(answer))

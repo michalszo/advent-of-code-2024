@@ -1,9 +1,8 @@
-import math
-from collections import defaultdict
-
 from string_formatting import print_formatted
 from util import *
 import itertools as it
+from collections import defaultdict
+import math
 
 DAY = 18
 
@@ -11,7 +10,6 @@ answer = 0
 data = ''''''
 # data = load_test_data(DAY); size = 7
 data = load_data(DAY); size = 71
-
 print_formatted(f"&e3&#ec{data}")
 
 data = [tuple(int(j) for j in i.split(",")) for i in data.splitlines()]
@@ -78,5 +76,8 @@ for entries in range(1000000000):
         answer = new_point
         break
 
-print(answer)
+answer = f"{answer[0]},{answer[1]}"
+
+# 56,8
+print_formatted(f"&ffAnswer: &e2{answer}")
 # pyperclip.copy(str(answer))

@@ -1,17 +1,14 @@
-import math
-import re
-
 from string_formatting import print_formatted
 from util import *
 import itertools as it
+import re
 
 DAY = 13
 
 answer = 0
 data = ''''''
-data = load_test_data(DAY)
-# data = load_data(DAY)
-
+# data = load_test_data(DAY)
+data = load_data(DAY)
 print_formatted(f"&e3&#ec{data}")
 
 data = [[int(j) for j in re.match(
@@ -37,5 +34,6 @@ for (a, b, target), (ya, yb, ytarget) in zip(x_data, y_data):
     if not math.isinf(min_cost):
         answer += min_cost
 
-print(answer)
+# 33921
+print_formatted(f"&ffAnswer: &e2{answer}")
 # pyperclip.copy(str(answer))

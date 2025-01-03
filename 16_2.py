@@ -1,8 +1,7 @@
-from collections import defaultdict
-
 from string_formatting import print_formatted
 from util import *
 import itertools as it
+from collections import defaultdict
 
 DAY = 16
 
@@ -10,7 +9,6 @@ answer = 0
 data = ''''''
 # data = load_test_data(DAY)
 data = load_data(DAY)
-
 print_formatted(f"&e3&#ec{data}")
 
 data = [[*i] for i in data.splitlines()]
@@ -66,5 +64,6 @@ tiles = paths[(end, best_score)]
 print(tiles)
 answer = len(tiles)
 
-print(answer)
+# 494
+print_formatted(f"&ffAnswer: &e2{answer}")
 # pyperclip.copy(str(answer))

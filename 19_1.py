@@ -8,7 +8,6 @@ answer = 0
 data = ''''''
 # data = load_test_data(DAY)
 data = load_data(DAY)
-
 print_formatted(f"&e3&#ec{data}")
 
 words, sentences = data.split("\n\n")
@@ -32,5 +31,6 @@ for sentence in sentences:
     if rec(sentence):
         answer += 1
 
-print(answer)
+# 315
+print_formatted(f"&ffAnswer: &e2{answer}")
 # pyperclip.copy(str(answer))

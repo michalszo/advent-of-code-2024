@@ -1,10 +1,9 @@
-import re
-from collections import defaultdict
-from functools import reduce
-
 from string_formatting import print_formatted
 from util import *
 import itertools as it
+from collections import defaultdict
+from functools import reduce
+import re
 
 DAY = 14
 
@@ -12,7 +11,6 @@ answer = 0
 data = ''''''
 # data = load_test_data(DAY); SIZE = (11, 7)
 data = load_data(DAY); SIZE = (101, 103)
-
 print_formatted(f"&e3&#ec{data}")
 
 data = [[int(j) for j in re.match(r"p=(\d+),(\d+) v=(-?\d+),(-?\d+)", i).groups()] for i in data.splitlines()]
@@ -30,7 +28,6 @@ for px, py, vx, vy in data:
 print(qs)
 answer = reduce(lambda a, b: a * b, qs.values())
 
-print(answer)
-# nie 94154500
-# nie 223121256
+# 230461440
+print_formatted(f"&ffAnswer: &e2{answer}")
 # pyperclip.copy(str(answer))

@@ -1,9 +1,8 @@
-import math
-from collections import defaultdict
-
 from string_formatting import print_formatted
 from util import *
 import itertools as it
+import math
+from collections import defaultdict
 
 DAY = 20
 
@@ -25,8 +24,6 @@ data = '''###############
 ###############'''
 # data = load_test_data(DAY)
 data = load_data(DAY)
-
-
 print_formatted(f"&e3&#ec{data}")
 
 data = [[*i] for i in data.splitlines()]
@@ -139,5 +136,6 @@ for t, c in sorted(cheated_times.items()):
 #     if (x, y) == end:
 #         ps = min(ps, score)
 
-print(answer)
+# 979012
+print_formatted(f"&ffAnswer: &e2{answer}")
 # pyperclip.copy(str(answer))
