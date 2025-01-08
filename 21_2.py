@@ -1,23 +1,19 @@
+from string_formatting import print_formatted
+from util import *
 import itertools as it
 import math
 
-# from string_formatting import print_formatted
-# from util import *
-#
-# DAY = 21
-#
+
+DAY = 21
+
 answer = 0
 # data = ''''''
 # data = load_test_data(DAY)
-# # data = load_data(DAY)
-#
-# print_formatted(f"&e3&#ec{data}")
-#
-# data = [i for i in data.splitlines()]
-# print(data)
-#
-# print(answer)
-# # pyperclip.copy(str(answer))
+data = load_data(DAY)
+print_formatted(f"&e3&#ec{data}")
+
+data = [i for i in data.splitlines()]
+print(data)
 
 t = [
     [1, 2, 3, 3, 4],
@@ -37,53 +33,60 @@ for _ in range(24):
     ]
 print(t)
 
-napisy = [
-    (29, ("<", "^", "^^>", "vvv")),
-    (980, ("^^^", "<", "vvv", ">")),
-    (179, ("^<<", "^^", ">>", "vvv")),
-    (456, ("^^<<", ">", ">", "vv")),
-    (379, ("^", "<<^^", ">>", "vvv")),
-]
+pad = "789\n456\n123\n 0A"
 
-napisy = [
-    (805, ("^^^<", "vvv", "^^", ">vv")),
-    (964, ("^^^", "v", "<<", ">>vv")),
-    (459, ("^^<<", ">", ">^", "vvv")),
-    (968, ("^^^", "v", "<^", ">vvv")),
-    (671, ("^^", "<<^", "vv", ">>v")),
-]
+codes = []
+for i in data:
+    moves = []
+    for a, b in zip("A" + i, i):
+        step = ""
+        ax, ay = pad.index(a) % 4, pad.index(a) // 4
+        bx, by = pad.index(b) % 4, pad.index(b) // 4
+        dx = bx - ax
+        dy = by - ay
+        if dx < 0:
+            step += "<"*-dx
+        if dx > 0:
+            step += ">"*dx
+        if dy < 0:
+            step += "^"*-dy
+        if dy > 0:
+            step += "v"*dy
+        moves.append(step)
+    codes.append((i, moves))
 
-def zrob(parametr):
-    _wynik = 0
+print(codes)
+
+def do(parametr):
+    outcome = 0
     for _a, _b in it.pairwise(f'A{parametr}'):
         _a = "<v^>A".index(_a)
         _b = "<v^>A".index(_b)
         p = t[_a][_b]
-        _wynik += p
+        outcome += p
         # print(a, b, len(p), p)
 
-    return _wynik
+    return outcome
 
-for kod, (a, b, c, d) in napisy:
-    najlepszy_wynik = math.inf
+for code, (a, b, c, d) in codes:
+    best_result = math.inf
 
     for (wa, wb, wc, wd) in it.product({-1, 1}, repeat=4):
-        napis = f'{a[::wa]}A{b[::wb]}A{c[::wc]}A{d[::wd]}A'
+        string = f'{a[::wa]}A{b[::wb]}A{c[::wc]}A{d[::wd]}A'
 
-        if napis.startswith("<<"):
+        if string.startswith("<<"):
             continue
 
-        if napis.endswith(">>A"):
+        if string.endswith(">>A"):
             continue
 
-        wynik = zrob(napis)
+        result = do(string)
 
-        najlepszy_wynik = min(wynik, najlepszy_wynik)
-    # print(len(jeden), jeden)
-    # dwa = zrob(najlepszy_wynik)
-    # print(dwa)
-    q = kod*najlepszy_wynik
-    print(kod, najlepszy_wynik, q)
+        best_result = min(result, best_result)
+    q = int(code[:-1]) * best_result
+    print(code, best_result, q)
     answer += q
 
-print(answer)
+# 337744744231414
+print_formatted(f"&ffAnswer: &e2{answer}")
+# pyperclip.copy(str(answer))
